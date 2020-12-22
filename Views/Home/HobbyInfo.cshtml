@@ -1,0 +1,74 @@
+@model UserHobby
+
+@{
+
+    var hobby = ViewBag.hobby as Hobby;
+    var user = ViewBag.user as User;
+}
+
+<div class="col-16">
+    <partial name="NavBarPartial"/>
+    <div>
+        <h3>@hobby.Name</h3>
+    </div>
+    <div class="d-flex">
+        <div class="col-6">
+            <h4>Description</h4>
+        </div>
+        <div>
+            <p>@hobby.Description</p>
+            <a class="btn btn-primary float-right float-bottom" asp-action="HobbyEditing" asp-route-hobbyId="@hobby.HobbyId">Edit</a>
+        </div>
+    </div>
+    <div class="d-flex">
+        <div class="col-8">
+            <h5>@hobby.Name Enthusiasts:</h5>
+            @if (hobby.Enthusiasts.Count > 0)
+            {
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Proficiency</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var userHobby in hobby.Enthusiasts)
+                        {
+                            <tr>
+                                <td>@userHobby.Enthusiast.FirstName</td>
+                                <td>@userHobby.Proficiency</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div>
+                    <p>--No enthusiasts yet!--</p>
+                </div>
+            }
+        </div>
+        @if (!hobby.Enthusiasts.Any(userHobby => userHobby.EnthusiastId == user.UserId)){
+            <div class="col-8">
+                <h5>Become an Enthusiast!</h5>
+                <form method="post" asp-action="CreateUserHobby" asp-route-hobbyId="@hobby.HobbyId">
+                    <div class="form-group">
+                        <label class="d-block" asp-for="Proficiency"></label>
+                        <select class="d-block" asp-for="Proficiency">
+                            <option value="Novice">Novice</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Expert">Expert</option>
+                        </select>
+                    </div>
+                    <input type="hidden" asp-for="EnthusiastId" value="@user.UserId"/>
+                    <input type="hidden" asp-for="HobbyId" value="@hobby.HobbyId"/>
+                    <div class="form-group">
+                        <button>Add to Hobbies!</button>
+                    </div>
+                </form>
+            </div>
+        }
+    </div>
+</div>

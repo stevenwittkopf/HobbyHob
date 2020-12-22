@@ -1,0 +1,29 @@
+@model Hobby
+
+@{
+    var hobby = ViewBag.hobby;
+}
+
+<div class="col-16">
+    <partial name="NavBarPartial"/>
+    <div class="text-center">
+        <h3>Edit your hobby</h3>
+    </div>
+    <form method="post" asp-action="UpdateHobby">
+        <div class="col-8">
+            <div class="form-group">
+                <label class="d-block" asp-for="Name">Name:</label>
+                <input class="d-block" asp-for="Name" value="@hobby.Name"/>
+                <span class="d-block" asp-validation-for="Name"></span>
+            </div>
+            <div class="form-group">
+                <label class="d-block" asp-for="Description">Description:</label>
+                <input class="d-block" asp-for="Description" value="@hobby.Description"/>
+                <span class="d-block" asp-validation-for="Description"></span>
+            </div>
+        </div>
+        <div>
+            <button class="float-right float-bottom">Update</button>
+        </div>
+    </form>
+</div>
