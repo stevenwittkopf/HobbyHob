@@ -1,0 +1,27 @@
+@model LoginCredentials
+
+<div class="col-8">
+    <div class="text-center">
+        <h3>Login</h3>
+    </div>
+    <form method="post" asp-action="Login">
+        <div class="form-group">
+            <span asp-validation-for="LoginUsername"></span>
+        </div>
+        <div class="form-group">
+            <div class="form-group-row">
+                <label class="col-4" asp-for="LoginUsername">Username: </label>
+                <input class="col-4" asp-for="LoginUsername"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-group-row">
+                <label class="col-4" asp-for="Password">Password: </label>
+                <input class="col-4" asp-for="Password"/>
+            </div>
+        </div>
+        <div class="form-group d-flex justify-content-center">
+            <button>Login</button>
+        </div>
+    </form>
+</div>
